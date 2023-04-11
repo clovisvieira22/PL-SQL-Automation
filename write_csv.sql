@@ -5,10 +5,10 @@ create or replace procedure write_csv is
 begin
   file_handle := utl_file.fopen('CSV_DIR', 'sizes.csv', 'w', 32767);
   for line in (
-    select tabela, tamanho, data from sizes
+    select table_owner, table_name, size_mb , date_size from sizes
   ) loop
     utl_file.put_line(file_handle,
-      line.tabela || ',' || line.tamanho || ',' || line.data
+      line.table_owner || ',' ||  line.table_name || ',' || line.size_mb || ',' || line.date_size
     );
   end loop;
   utl_file.fclose(file_handle);
